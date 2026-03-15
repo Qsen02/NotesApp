@@ -9,13 +9,18 @@ namespace NotesApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly FolderService _folderService;
-
+        /// <summary>
+        /// Инжектиране на сървиса за папки
+        /// </summary>
+        /// <param name="folderService">Сървис за папки</param>
         public HomeController(ILogger<HomeController> logger,FolderService folderService)
         {
             _logger = logger;
             _folderService = folderService;
         }
-
+        /// <summary>
+        /// Зареждане на началната страница
+        /// </summary>
         public async Task<IActionResult> Index()
         {
             List<FolderModel> folders = await _folderService.GetAllFolders();

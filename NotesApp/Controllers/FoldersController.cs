@@ -8,15 +8,25 @@ namespace NotesApp.Controllers
     public class FoldersController : Controller
     {
         private readonly FolderService _folderService;
-
+        /// <summary>
+        /// Инжектиране на сървиса за папки в конструктора
+        /// </summary>
+        /// <param name="folderService">Сървиса за папки</param>
         public FoldersController(FolderService folderService) 
         {
             _folderService = folderService;
         }
+        /// <summary>
+        /// Зареждане на страница за създаване на папка
+        /// </summary>
         public IActionResult Create()
         {
             return View();
         }
+        /// <summary>
+        /// Действието за създаване на папка
+        /// </summary>
+        /// <param name="folder">Данни за папката</param>
         [HttpPost]
         public async Task<IActionResult> OnCreate([Bind("Name")] FolderViewModel folder) 
         {
@@ -34,11 +44,19 @@ namespace NotesApp.Controllers
             }
             return View("Create", folder);
         }
+        /// <summary>
+        /// Зареждане на страница за изтриване на папка
+        /// </summary>
+        /// <param name="id">ID на папка</param>
         public async Task<IActionResult> Delete(int id) 
         {
             FolderModel folder = await _folderService.GetFolderById(id);
             return View(folder);
         }
+        /// <summary>
+        /// Действието за изтриване на папка
+        /// </summary>
+        /// <param name="id">ID на папка</param>
         public async Task<IActionResult> OnDelete(int id) 
         {
             if (id != null) 
@@ -47,6 +65,10 @@ namespace NotesApp.Controllers
             }
             return Redirect("/Home/Index");
         }
+        /// <summary>
+        /// Зареждане на страница за редактиране на папка
+        /// </summary>
+        /// <param name="id">ID на папка</param>
         public async Task<IActionResult> Edit(int id) 
         {
             FolderModel folder = await _folderService.GetFolderById(id);
@@ -57,6 +79,11 @@ namespace NotesApp.Controllers
             };
             return View(viewModel);
         }
+        /// <summary>
+        /// Действието за редактиране на папка
+        /// </summary>
+        /// <param name="folder">Данни за папката</param>
+        /// <param name="id">ID на папка</param>
         [HttpPost]
         public async Task<IActionResult> OnEdit([Bind("Name")] FolderViewModel folder,int id)
         {
@@ -74,7 +101,10 @@ namespace NotesApp.Controllers
             }
             return View("Create", folder);
         }
-
+        /// <summary>
+        /// Зареждане на страница с детайли за папка
+        /// </summary>
+        /// <param name="id">ID на папка</param>
         public async Task<IActionResult> Details(int id) 
         {
             FolderModel folder = await _folderService.GetFolderById(id);
