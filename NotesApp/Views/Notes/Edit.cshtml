@@ -1,0 +1,31 @@
+﻿@model NotesApp.ViewModels.NotesViewModel
+@{
+    ViewData["Title"] = "Edit Note page";
+}
+
+<form method="post" asp-action="OnEdit" asp-route-id=@Model.NoteId class="form">
+    <h1>Edit note here</h1>
+    @{
+        if (TempData["msg"] != null)
+        {
+            <label class="text-danger">@TempData["msg"]</label>
+        }
+    }
+    <div class="input">
+        <label for="Title">Title</label>
+        <input type="text" asp-for="Title" value=@Model.Title />
+        <span asp-validation-for="Title" class="text-danger"></span>
+    </div>
+    <div class="input">
+        <label for="Description">Description</label>
+        <textarea asp-for="Description" value=@Model.Description></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <div class="buttons">
+        <button type="submit" class="btn btn-success">Save</button>
+        <a class="text-white" asp-controller="Folders" asp-action="Details" asp-route-id=@Model.FolderId>
+            <button type="button" class="btn btn-primary">Cancel</button>
+        </a>
+    </div>
+</form>
+

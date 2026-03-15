@@ -1,0 +1,36 @@
+﻿@model FolderModel
+@{
+    ViewData["Title"] = "Folder Details page";
+}
+<section class="folders">
+    <h1>All notes in folder @Model.Name</h1>
+    <div class="buttons">
+        <a class="text-white" asp-controller="Notes" asp-action="Create" asp-route-id=@Model.Id>
+            <button class="btn btn-success">Add note</button>
+        </a>
+        <a class="text-white" asp-controller="Home" asp-action="Index">   
+            <button class="btn btn-primary">Back</button>
+        </a>
+    </div>
+    <section class="notes-container">
+        @if (Model.Notes.Count == 0)
+        {
+            <h2>No created notes yet</h2>
+        }
+        @foreach (NotesModel note in Model.Notes)
+        {
+           <article class="note">
+               <p>@note.Title</p>
+               <p>@note.Description</p>
+               <div class="buttons">
+                    <a class="text-white" asp-controller="Notes" asp-action="Edit" asp-route-id=@note.Id>
+                        <button class="btn btn-primary">Edit</button>
+                    </a>
+                    <a class="text-white" asp-controller="Notes" asp-action="Delete" asp-route-id=@note.Id>
+                        <button class="btn btn-danger">Delete</button>
+                    </a>
+               </div>
+           </article>   
+        }
+    </section>
+</section>

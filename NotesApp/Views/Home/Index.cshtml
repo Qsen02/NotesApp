@@ -1,0 +1,31 @@
+﻿@model List<FolderModel>
+@{
+    ViewData["Title"] = "Home";
+}
+
+<section class="folders">
+    <h1>Your folders</h1>
+    @if (Model.Count == 0)
+    {
+     <h2>You don't have created folders yet.</h2>   
+    }
+    <section class="folder-container">
+        @foreach (FolderModel folder in Model)
+        {
+            <article>
+                <h2>@folder.Name</h2>
+                <div class="buttons">
+                    <a class="text-white" asp-controller="Folders" asp-action="Edit" asp-route-id=@folder.Id>
+                        <button class="btn btn-primary text-white">Edit</button>
+                    </a>
+                    <a class="text-white" asp-controller="Folders" asp-action="Details" asp-route-id=@folder.Id>
+                       <button class="btn btn-secondary">Details</button>
+                    </a>
+                    <a class="text-white" asp-controller="Folders" asp-action="Delete" asp-route-id=@folder.Id>    
+                       <button class="btn btn-danger">Delete</button>
+                    </a>
+                </div>
+            </article>
+        }
+    </section>
+</section>
